@@ -1,12 +1,14 @@
+import { CartContext } from '@/reducers/cartReducer'
 import { Guitar } from '@/types/index'
+import { useContext } from 'react'
 
 type GuitarraProps = {
   guitar: Guitar
-  addToCart: (item: Guitar) => void
 }
 
-export const Guitarra = ({ guitar, addToCart }: GuitarraProps) => {
+export const Guitarra = ({ guitar }: GuitarraProps) => {
   const { id, nombre, precio, img } = guitar
+  const { dispatch } = useContext(CartContext)
 
   return (
     <>
@@ -28,7 +30,9 @@ export const Guitarra = ({ guitar, addToCart }: GuitarraProps) => {
           <button
             type='button'
             className='btn btn-dark w-100'
-            onClick={() => addToCart(guitar)}
+            onClick={() =>
+              dispatch({ type: 'ADD_TO_CART', payload: { item: guitar } })
+            }
           >
             Agregar al Carrito
           </button>

@@ -1,21 +1,18 @@
 import { Guitarra } from './Guitarra'
-import { db } from '@/lib/data'
-import { useState } from 'react'
-import { Guitar } from '@/types/index'
+import { useContext } from 'react'
+import { CartContext } from '@/reducers/cartReducer'
 
-type GuitarrasProps = {
-  addToCart: (guitar: Guitar) => void
-}
-
-export default function Guitarras ({ addToCart }: GuitarrasProps) {
-  const [data, _] = useState(db)
+export default function Guitarras () {
+  // const [data, _] = useState(db)
+  const { state } = useContext(CartContext)
+  console.log({ state })
 
   return (
     <main className='container-xl mt-5'>
       <h2 className='text-center'>Nuestra Colección</h2>
       <div className='row mt-5'>
-        {data.map(guitar => (
-          <Guitarra key={guitar.nombre} guitar={guitar} addToCart={addToCart} />
+        {state.data.map(guitar => (
+          <Guitarra key={guitar.nombre} guitar={guitar} />
         ))}
       </div>
     </main>
